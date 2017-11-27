@@ -5,7 +5,7 @@ import org.opencv.core.Mat;
 
 public class MatToBufferedImage {
 
-	public static BufferedImage Converter(Mat matrix, boolean binary) {
+	public static BufferedImage Converter(Mat matrix) {
 
 		int cols = matrix.cols();
 	    int rows = matrix.rows();
@@ -23,7 +23,6 @@ public class MatToBufferedImage {
 	        case 3: 
 	            type = BufferedImage.TYPE_3BYTE_BGR;
 
-	            // bgr to rgb
 	            byte b;
 	            for(int i=0; i<data.length; i=i+3) {
 	                b = data[i];

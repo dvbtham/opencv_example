@@ -39,10 +39,10 @@ public class WorkingWithImage extends JFrame {
 
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
-		Mat imageMat = Imgcodecs.imread(IMG_URL);
-		Mat imageGray = new Mat(imageMat.rows(), imageMat.cols(), imageMat.type());
+		Mat srcImg = Imgcodecs.imread(IMG_URL);
+		Mat destinationImage = new Mat(srcImg.rows(), srcImg.cols(), srcImg.type());
 
-		if (imageMat.empty()) {
+		if (srcImg.empty()) {
 			System.out.println("Image not found");
 			goToNext = false;
 			return;
@@ -56,34 +56,44 @@ public class WorkingWithImage extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				JComboBox<?> cb = (JComboBox<?>) e.getSource();
 				ColorSpace obj = (ColorSpace) cb.getSelectedItem();
-				
+
 				switch (obj.getValue()) {
 				case 1:
-					Imgproc.cvtColor(imageMat, imageGray, Imgproc.COLOR_RGB2GRAY);
-					imageDstView.setIcon(new ImageIcon(MatToBufferedImage.Converter(imageGray, false)));
-					imageSrcView.setText("=>");
+					ImageConverter(srcImg, destinationImage, Imgproc.COLOR_RGB2GRAY);
 					break;
+
+				case 3:
+					ImageConverter(srcImg, destinationImage, Imgproc.COLOR_RGB2HSV);
+					break;
+
+				case 4:
+					ImageConverter(srcImg, destinationImage, Imgproc.COLOR_RGB2Lab);
+					break;
+					
+				case 5:
+					ImageConverter(srcImg, destinationImage, Imgproc.COLOR_RGB2HLS_FULL);
+					break;
+
 				case 2:
-					
+
+					Imgproc.cvtColor(srcImg, destinationImage, Imgproc.COLOR_RGB2GRAY);
+
 					Mat imageBinary = new Mat();
-					
-					if (imageGray.empty())
-					{
+
+					if (destinationImage.empty()) {
 						System.out.println("Could not open or find the image\n");
 						break;
 					}
-				 
-					Imgproc.threshold(imageGray, imageBinary, 128, 255, Imgproc.THRESH_BINARY);
-					
-					imageDstView.setIcon(new ImageIcon(MatToBufferedImage.Converter(imageBinary, true)));
-					imageSrcView.setText("=>");
+
+					Imgproc.threshold(destinationImage, imageBinary, 128, 255, Imgproc.THRESH_BINARY);
+					ShowImage(imageBinary);
+
 					break;
 				}
 			}
 		});
 
-
-		imageSrcView.setIcon(new ImageIcon(MatToBufferedImage.Converter(imageMat, false)));
+		imageSrcView.setIcon(new ImageIcon(MatToBufferedImage.Converter(srcImg)));
 
 		add(colorSpaceCbb);
 		add(imageSrcView);
@@ -91,9 +101,20 @@ public class WorkingWithImage extends JFrame {
 
 	}
 
+	private void ImageConverter(Mat srcImg, Mat destinationImage, int colorSpaceValue) {
+		Imgproc.cvtColor(srcImg, destinationImage, colorSpaceValue);
+		ShowImage(destinationImage);
+	}
+
+	private void ShowImage(Mat srcImg) {
+
+		imageDstView.setIcon(new ImageIcon(MatToBufferedImage.Converter(srcImg)));
+		imageSrcView.setText("=>");
+	}
+
 	private void RenderCombobox() {
 		colorSpaceCbb.setRenderer(new DefaultListCellRenderer() {
-			
+
 			private static final long serialVersionUID = 1L;
 
 			@Override
