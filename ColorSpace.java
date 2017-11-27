@@ -23,7 +23,8 @@ public class ColorSpace {
 		ColorSpace clsp3 = new ColorSpace(3, "Chuyển sang HSV");
 		ColorSpace clsp4 = new ColorSpace(4, "Chuyển sang Lab");
 		ColorSpace clsp5 = new ColorSpace(5, "Chuyển sang HSL");
-		ColorSpace[] persons = new ColorSpace[] { clsp1, clsp2, clsp3, clsp4, clsp5 };
+		ColorSpace clsp6 = new ColorSpace(6, "Tách ảnh gốc");
+		ColorSpace[] persons = new ColorSpace[] { clsp1, clsp2, clsp3, clsp4, clsp5, clsp6 };
 		return persons;
 	}
 }
