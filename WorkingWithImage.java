@@ -151,7 +151,7 @@ public class WorkingWithImage extends JFrame {
 	private void splitImages(Mat srcImg, JPanel container) {
 		final String IMG_URL_READ = "D:/dev/java/openCV/";
 
-		JLabel redView = new JLabel("sdfsdffdsdfsdf");
+		JLabel redView = new JLabel();
 		JLabel greenView = new JLabel();
 		JLabel blueView = new JLabel();
 
