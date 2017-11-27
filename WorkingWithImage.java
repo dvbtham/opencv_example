@@ -35,7 +35,7 @@ public class WorkingWithImage extends JFrame {
 
 	public WorkingWithImage() {
 		super("Image Demo");
-		
+				
 		JPanel container = new JPanel();
 		
 		container.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -149,16 +149,18 @@ public class WorkingWithImage extends JFrame {
 	}
 
 	private void splitImages(Mat srcImg, JPanel container) {
-		final String IMG_URL_READ = "D:/dev/java/openCV/";
+				
+		final String redFileName = "red.png";
+		final String greenFileName = "green.png";
+		final String blueFileName = "blue.png";
+
 
 		JLabel redView = new JLabel();
 		JLabel greenView = new JLabel();
 		JLabel blueView = new JLabel();
 
-		final String redFileName = "red.png";
-		final String greenFileName = "green.png";
-		final String blueFileName = "blue.png";
-
+		
+		
 		ArrayList<Mat> bgr = new ArrayList<Mat>();
 
 		Core.split(srcImg, bgr);
@@ -173,15 +175,15 @@ public class WorkingWithImage extends JFrame {
 		if (dialogResult == JOptionPane.YES_OPTION) {
 			
 			imageSrcView.setText("=>");
-			redView.setIcon(new ImageIcon(IMG_URL_READ + redFileName));
+			redView.setIcon(new ImageIcon(redFileName));
 			container.add(redView);
 
 			redView.setText("=>");
-			greenView.setIcon(new ImageIcon(IMG_URL_READ + greenFileName));
+			greenView.setIcon(new ImageIcon(greenFileName));
 			container.add(greenView);
 
 			greenView.setText("=>");
-			blueView.setIcon(new ImageIcon(IMG_URL_READ + blueFileName));
+			blueView.setIcon(new ImageIcon(blueFileName));
 			container.add(blueView);
 		}
 
